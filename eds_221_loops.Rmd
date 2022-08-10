@@ -8,6 +8,7 @@ date: "2022-08-10"
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
 
 library(tidyverse)
+library(palmerpenguins)
 ```
 
 ### `if` statements
@@ -70,4 +71,178 @@ if (marmot <0.5) {
  print("this is a large marmot")
 }
 ```
+
+
+```{r}
+mean_mtcars <- vector(mode = "numeric", length = ncol(mtcars)) ## empty vector, expecting values, same columns as cars dataset
+
+for (i in seq_along(mtcars)){
+ mean_val <- mean(mtcars[[i]], na.rm=TRUE)
+ mean_mtcars[i] <- mean_val
+}
+
+```
+
+
+```{r}
+## group by %>% summarize
+
+penguins%>%
+ group_by(species, island)%>%
+ summarize(mean_bill_length = mean(bill_length_mm, na.rm=TRUE),
+           sd_bill_length = sd(bill_length_mm, na.rm = TRUE),
+           n = n())
+
+
+
+starwars%>%
+ group_by(homeworld)%>%
+ summarize(mean_height = mean(height, na.rm=TRUE),
+           sd_height = sd(height, na.rm = TRUE))%>%
+ view()
+
+penguins%>%
+ group_by(species, sex)%>%
+ summarize(max_flipper_length = max(flipper_length_mm, na.rm=TRUE),
+           min_flipper_length = min(flipper_length_mm, na.rm = TRUE))
+
+
+
+
+```
+
+```{r}
+tree_height <-c(1,2,6,10,14,20)
+
+for (i in seq_along(tree_height)) {
+ val = tree_height[i] + tree_height[i + 1]
+ print(val)
+}
+
+```
+
+## Create vector that create age in human years in animal years 
+```{r}
+animal_ages <- vector(mode = "numeric", length = length(species))
+
+species <- c("dog","elephant","goat","dog","dog","elephant")
+
+age_human <- c(3,8,4,6,12,18)
+
+## if else if else if statement
+for (i in seq_along(species)) {
+ if (species[i] == "dog") {
+  animal_age <- age_human[i] * 7
+ } else if (species[i] == "elephant") {
+  animal_age <- age_human[i] * 0.88
+ } else if (species[i] == "goat") {
+  animal_age <- age_human[i] * 4.7
+ }
+ print(animal_age)
+}
+
+
+for (i in seq_along(species)) {
+ if (species[i] == "dog") {
+  animal_age <- age_human[i] * 7
+ } else if (species[i] == "elephant") {
+  animal_age <- age_human[i] * 0.88
+ } else if (species[i] == "goat") {
+  animal_age <- age_human[i] * 4.7
+ } 
+ animal_ages[i] <- animal_age
+ }
+```
+
+### For loops across data frames
+```{r}
+mean_mtcars <- vector(mode="numeric", length = ncol(mtcars))
+
+for (i in seq_along(mtcars)) {
+ mean_val <- mean(mtcars[[i]], na.rm = TRUE)
+ mean_mtcars[i] <- mean_val
+}
+
+mean_mtcars
+
+
+```
+
+
+## Now more functional programming examples
+## Apply, across, map_df
+```{r}
+apply(X = mtcars, MARGIN = 2, FUN = mean)
+
+## list!
+map(.x = mtcars, .f = mean)
+
+map_df(.x = mtcars, .f = mean)
+```
+
+
+
+## Day 3 Activities 
+```{r}
+## Write an if - else if - else statement that returns “Low to moderate risk” if pm2_5 (for Particulate Matter 2.5) is less than 100, “Unhealthy for sensitive groups” if PM 2.5 is 100 <= pm2_5 < 150, and “Health risk present” if PM 2.5 is >= 150.
+
+##Test by changing the value of your pm2_5 object and re-running your statement to check.
+
+
+pm2_5 <- 48
+if (pm2_5 < 100) {
+ print("low to moderate risk")
+} else if (pm2_5 <= 100 & pm2_5 < 150) {
+ print("unhealthy for sensitive groups")
+} else 
+ print("health risk present")
+
+
+## Store the string “blue whale” as an object called species. Write an if statement that returns “You found a whale!” if the string “whale” is detected in species, otherwise return nothing. Test by changing the species string & re-running to see output.
+
+species <- "blue whale"
+
+if (str_detect(species, "whale")) {
+ print("you found a whale")
+}
+
+```
+
+```{r}
+max_airtemp_c <- 24.1 
+
+if (max_airtemp_c > 27) {
+ print("temp too high")
+} else
+ print("temp ok")
+```
+
+
+```{r}
+base_burrito <- 6.50 
+main_ingredient <- "veggie"
+
+for (i in seq_along(base_burrito)) {
+ if (species[i] == "dog") {
+  animal_age <- age_human[i] * 7
+ } else if (species[i] == "elephant") {
+  animal_age <- age_human[i] * 0.88
+ } else if (species[i] == "goat") {
+  animal_age <- age_human[i] * 4.7
+ }
+ print(animal_age)
+}
+
+
+
+A veggie burrito is the cost of a base burrito
+A chicken burrito costs 3.00 more than a base burrito
+A steak burrito costs 3.25 more than a base burrito
+
+
+
+
+```
+
+
 
