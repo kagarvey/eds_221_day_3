@@ -1,0 +1,76 @@
+---
+title: "morning_session"
+output: html_document
+date: "2022-08-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+
+library(tidyverse)
+```
+
+### `if` statements
+```{r}
+burrito <- 2.4
+
+if (burrito > 2) 
+{print("I love burritos")}
+
+## change value of burritos so it wont print
+burrito <- 0.7
+
+if (burrito > 2) 
+{print("I love burritos")}
+
+
+```
+
+
+```{r}
+my_ships <- c("MF", "X-wing","Tie-Fighter","Death Star")
+
+str_detect(my_ships, pattern = "r")
+
+tatooine_characters <- starwars |>
+ filter(homeworld == "Tatooine")
+
+# use %in% operator to check for multiple positive matches
+t_e_n <- starwars |> 
+ filter(homeworld %in% c("Tattoine","Naboo","Endor"))
+```
+
+```{r}
+phrase <- "I love burritos"
+
+if (str_detect(phrase, "love")) 
+{print("I am a burrito fan.")}
+```
+
+
+```{r}
+pika <- 89.1
+
+if (pika > 60) {
+ print("mega pika")
+} else {
+  print("normal pika")}
+
+```
+```{r}
+## if else if else statment 
+
+marmot <- 2.8
+
+if (marmot <0.5) {
+ print("this is a small marmot")
+} else if (marmot >= 0.5 & marmot <3) {
+ print("this is a medium marmot")
+} else {
+ print("this is a large marmot")
+}
+
+
+
+```
+
