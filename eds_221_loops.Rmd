@@ -69,8 +69,5 @@ if (marmot <0.5) {
 } else {
  print("this is a large marmot")
 }
-
-
-
 ```
 
